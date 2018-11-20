@@ -25,7 +25,7 @@
 
 </body>
 </html>
-
+<script  src="jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
             var map = new BMap.Map("container");
             var point = new BMap.Point(116.315992,39.939071);
@@ -82,11 +82,26 @@
 		local.search(myValue);
 	}
 
-            var mapPoints = [
-                {x:116.310944,y:39.939005,title:"我是标题",con:"我是内容",branch:"11号楼"},
-                {x:30.324994,y:120.164399,title:"D",con:"我是D",branch:"老四"},
-                {x:30.24884,y:120.305074,title:"E",con:"我是E",branch:"老五"}
-            ];
+           /* var mapPoints = [
+                //{x:116.310944,y:39.939005,title:"我是标题",con:"我是内容",branch:"11号楼"},
+                //{x:30.324994,y:120.164399,title:"D",con:"我是D",branch:"老四"},
+                //{x:30.24884,y:120.305074,title:"E",con:"我是E",branch:"老五"}
+            ];*/
+
+	        /*  getJSON*/
+            var mapPoints = [];
+            $(function(){
+                $.getJSON("test.json",function(mapPointss){
+                    console.log(mapPointss);
+                    mapPoints = mapPointss;
+
+                    $.each(mapPointss,function(i,n){
+                        console.log(i+"-"+n["x"]+n["y"]+n["title"]+n["con"]+n["branch"]);
+                    })
+
+                });
+            });
+
             //var i = 0;
 
 
@@ -153,5 +168,4 @@
                         }
 
                 });
-
         </script>
