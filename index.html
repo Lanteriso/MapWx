@@ -28,9 +28,41 @@
 <script  src="jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
             var map = new BMap.Map("container");
-            var point = new BMap.Point(116.315992,39.939071);
-            map.centerAndZoom(point, 16);
+
+
             map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放,
+
+
+$(function() {
+    //初始化地图 默认加载
+    var point = new BMap.Point(116.315992,39.939071);
+    map.centerAndZoom(point,16);//初始化地图，point为中心点，缩放级别为16
+    //判断手机浏览器是否支持定位
+    if(navigator.geolocation){
+        var geolocation = new BMap.Geolocation();//创建定位实例
+        geolocation.getCurrentPosition(showLocation,{enableHighAccuracy: true});//enableHighAccuracy 要求浏览器获取最佳结果
+    }else{
+        map.addControl(new BMap.GeolocationControl());//添加定位控件 支持定位
+    }
+});
+//处理定位后的信息
+function showLocation(r){
+    if(this.getStatus() == BMAP_STATUS_SUCCESS){//定位成功
+        //新建中心点 并将地图中心移动过去
+        var centerPoint = new BMap.Point(r.longitude,r.latitude);
+        map.panTo(centerPoint);
+        map.setCenter(centerPoint);
+        //新建标注
+        var mk = new BMap.Marker(centerPoint);
+        mk.disableDragging();// 不可拖拽
+        map.addOverlay(mk);
+    }
+    else {
+        alert('failed'+this.getStatus());//定位失败
+    }
+}
+
+
 
             function G(id) {
 		return document.getElementById(id);
