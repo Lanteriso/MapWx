@@ -180,7 +180,8 @@ function showLocation(r){
             }
                 map.addEventListener("click",function(e){
                     console.log("x:" + e.point.lng + "," + "y:"+ e.point.lat);
-                    document.getElementById("demozb").value = "x:" + e.point.lng + "," + "y:"+ e.point.lat;
+                    //[{"x":116.307391,"y":39.942909,"title":"我是标题","con":"我是内容","branch":"怡景阁"}]
+                    document.getElementById("demozb").value = '[{"x":' + e.point.lng + "," + '"y":'+ e.point.lat+',"title":"我是标题","con":"我是内容","branch":"怡景阁"}]';
                 });
 
                 map.addEventListener("zoomend", function(){
